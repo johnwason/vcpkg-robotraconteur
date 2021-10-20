@@ -80,4 +80,6 @@ jobs:
       if: always()
       with:
         name: logs-osx
-        path: vcpkg/buildtrees/*/*.txt
+        path: |
+          vcpkg/buildtrees/*/*.txt
+          vcpkg/buildtrees/*/*.log
