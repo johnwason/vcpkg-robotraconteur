@@ -38,7 +38,9 @@ jobs:
       if: always()
       with:
         name: logs-${{ matrix.os }}
-        path: vcpkg/buildtrees/*/*.txt
+        path: |
+          vcpkg/buildtrees/*/*.txt
+          vcpkg/buildtrees/*/*.log
   build-win:
     runs-on: windows-2016
     steps:
@@ -59,7 +61,9 @@ jobs:
       if: always()
       with:
         name: logs-win
-        path: vcpkg/buildtrees/*/*.txt
+        path: |
+          vcpkg/buildtrees/*/*.txt
+          vcpkg/buildtrees/*/*.log
   build-osx:    
     runs-on: macos-10.15
     steps:
