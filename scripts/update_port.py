@@ -12,7 +12,7 @@ def main():
     parser = argparse.ArgumentParser(description="Update vcpkg port to new version")
     parser.add_argument("--port", type=str, default=None, help="The port to update")
     parser.add_argument("--src-repository", type=str, default=None, help="The source repository")
-    parser.add_argument("--tag-name", type=str, default=None help="The tag name. Must be semver based")
+    parser.add_argument("--tag-name", type=str, default=None, help="The tag name. Must be semver based")
 
     args = parser.parse_args()
 
