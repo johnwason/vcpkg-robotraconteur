@@ -4,25 +4,29 @@ import re
 import urllib
 import urllib.request
 import hashlib
-import json
+import os
 
 
 def main():
     
     parser = argparse.ArgumentParser(description="Update vcpkg port to new version")
-    parser.add_argument("--port", type=str, required=True, help="The port to update")
-    parser.add_argument("--src-repository", type=str, required=True, help="The source repository")
-    parser.add_argument("--tag-name", type=str, required=True, help="The tag name. Must be semver based")
+    parser.add_argument("--port", type=str, default=None, help="The port to update")
+    parser.add_argument("--src-repository", type=str, default=None, help="The source repository")
+    parser.add_argument("--tag-name", type=str, default=None help="The tag name. Must be semver based")
 
     args = parser.parse_args()
 
     tag_name = args.tag_name
+    if tag_name is None:
+        tag_name = os.environ["INPUT_TAG_NAME"]
 
     semver_regex = r"^v((?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*))(?:(-(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$"
 
     tag_name_r = re.match(semver_regex,tag_name)
 
     port_name = args.port
+    if port_name is None:
+        port_name = os.environ["INPUT_PORT"]
 
     with open(f"ports/{port_name}/vcpkg.json", "r") as f:
         vcpkg_json = f.read()
@@ -31,6 +35,8 @@ def main():
         portfile = f.read()
     
     repo = args.src_repository
+    if repo is None:
+        repo = os.environ["INPUT_SOURCE_REPOSITORY"]
 
     tarball_url = f"https://github.com/{repo}/archive/{tag_name}.tar.gz"
 
