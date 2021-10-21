@@ -20,6 +20,10 @@ jobs:
     - uses: actions/checkout@v2
     - name: Update Port
       run: python3 scripts/update_port.py
+      env:
+        INPUT_TAG_NAME: ${{ inputs.tag_name }}
+        INPUT_PORT: ${{ inputs.port }}
+        INPUT_SOURCE_REPOSITORY: ${{ inputs.source_repository }}
     - name: Create Pull Request
       uses: peter-evans/create-pull-request@v3
     
