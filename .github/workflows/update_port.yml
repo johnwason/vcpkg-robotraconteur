@@ -26,6 +26,8 @@ jobs:
         INPUT_SOURCE_REPOSITORY: ${{ github.event.inputs.source_repository }}
     - name: Create Pull Request
       uses: peter-evans/create-pull-request@v3
+      with:
+        token: ${{ secrets.BOT_GITHUB_TOKEN }}
     
       
 
